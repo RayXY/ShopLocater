@@ -1,6 +1,5 @@
 package com.shoplocater;
 
-import com.shoplocater.model.Shop;
 import com.shoplocater.model.ShopGeoCode;
 import org.springframework.stereotype.Service;
 

@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 /**
  * Spring REST service controller where resource accessors are defined
  * Created by Ray on 25/05/2016.
