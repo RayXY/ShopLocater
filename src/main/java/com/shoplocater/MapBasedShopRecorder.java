@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Ray on 25/05/2016.
@@ -27,7 +27,7 @@ public class MapBasedShopRecorder implements ShopRecorder {
     private Map<ShopIdentity, Shop> recordMap;
 
     public MapBasedShopRecorder() {
-        this.recordMap = new ConcurrentHashMap<>();
+        this.recordMap = new HashMap<>();
     }
 
     @Override
