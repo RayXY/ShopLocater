@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
+ * Spring REST service controller where resource accessors are defined
  * Created by Ray on 25/05/2016.
  */
 @RestController
@@ -32,6 +33,7 @@ public class ShopController {
 
         try {
             shopRecorder.addShop(shopIdentity);
+            System.out.println("Shop successfully added");
         }
         catch (ShopGeoCodeNotFoundException e) {
             System.out.println("Shop geocode cannot be found");
@@ -41,7 +43,7 @@ public class ShopController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @RequestMapping(method = GET, value = "/findnearest")
+    @RequestMapping(value = "/findnearest", method = RequestMethod.GET)
     public ResponseEntity<Shop> findNearestShop(@RequestParam double longitude,
                                                 @RequestParam double latitude) {
         ShopGeoCode geoCode = new ShopGeoCode(longitude, latitude);
