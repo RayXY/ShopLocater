@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 public class GoogleShopGeoCodeFinder implements ShopGeoCodeFinder{
 
     private static final String GOOGLE_GEO_API = "https://maps.googleapis.com/maps/api/geocode/json?";
-    private static final String PARAMETERS = "components=street_number:%s|postal_code:%s&Key=";
+    private static final String PARAMETERS = "components=street_number:%s|postal_code:%s&Key=%s";
     private static final String GOOGLE_API_KEY = "AIzaSyBQjCQVlN_fgTyIPDG65tTdNuuC7k9qs0Y";
 
     private RestTemplate restTemplate;
@@ -22,8 +22,7 @@ public class GoogleShopGeoCodeFinder implements ShopGeoCodeFinder{
     public ShopGeoCode findShopGeoCode(ShopIdentity shopIdentity) throws ShopGeoCodeNotFoundException {
         String url = GOOGLE_GEO_API +
                 String.format(PARAMETERS, shopIdentity.getShopAddressNumber(),
-                        shopIdentity.getShopAddressPostCode()) +
-                GOOGLE_API_KEY;
+                        shopIdentity.getShopAddressPostCode(), GOOGLE_API_KEY);
         if (restTemplate == null)
             restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(url, String.class);
