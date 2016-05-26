@@ -22,7 +22,7 @@ You will be expecting no body in the response but one of three HTTP return statu
     409 Conflict: any further call to add shop will recived this status  
     406 Not Acceptable: if the service cannot add the shop  
 
-2. To find a nearest shop with a geo code
+2. To find a nearest shop with a geo code  
 Use your http client to send a GET call to "http://localhost:8080/findnearest?longitude=[your longitude]&latitude=[your latitude]"  
 This call will return a JSON body looks like below  
 {  
