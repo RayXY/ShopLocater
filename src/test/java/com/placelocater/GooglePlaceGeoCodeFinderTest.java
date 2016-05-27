@@ -1,7 +1,7 @@
-package com.shoplocater;
+package com.placelocater;
 
-import com.shoplocater.model.ShopGeoCode;
-import com.shoplocater.model.ShopIdentity;
+import com.placelocater.model.PlaceGeoCode;
+import com.placelocater.model.PlaceIdentity;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -24,14 +24,14 @@ import static org.mockito.Mockito.when;
 /**
  * Created by Ray on 25/05/2016.
  */
-public class GoogleShopGeoCodeFinderTest {
+public class GooglePlaceGeoCodeFinderTest {
 
     private static final double EXPECTED_LATITUDE = 37.4224764;
     private static final double EXPECTED_LONGITUDE = -122.0842499;
     private static final double EPSILON = 1e-10;
 
     @InjectMocks
-    private GoogleShopGeoCodeFinder testShopGeoCodeFinder;
+    private GooglePlaceGeoCodeFinder testPlaceGeoCodeFinder;
 
     @Mock
     private RestTemplate mockRestTemplate;
@@ -45,36 +45,36 @@ public class GoogleShopGeoCodeFinderTest {
     }
 
     @Test
-    public void testFindShopGeoCodeWithNormalResult() throws Exception {
-        ShopIdentity stubShop = mock(ShopIdentity.class);
-        when(stubShop.getShopAddressNumber()).thenReturn("");
-        when(stubShop.getShopAddressPostCode()).thenReturn("");
+    public void testFindPlaceGeoCodeWithNormalResult() throws Exception {
+        PlaceIdentity stubPlace = mock(PlaceIdentity.class);
+        when(stubPlace.getAddressNumber()).thenReturn("");
+        when(stubPlace.getPostCode()).thenReturn("");
 
         when(mockRestTemplate.getForObject(anyString(), anyObject())).
                 thenReturn(loadStringWithFullContent());
-        ShopGeoCode result = testShopGeoCodeFinder.findShopGeoCode(stubShop);
-        assertEquals(EXPECTED_LATITUDE, result.getShopLatitude(), EPSILON);
-        assertEquals(EXPECTED_LONGITUDE, result.getShopLongitude(), EPSILON);
+        PlaceGeoCode result = testPlaceGeoCodeFinder.findPlaceGeoCode(stubPlace);
+        assertEquals(EXPECTED_LATITUDE, result.getLatitude(), EPSILON);
+        assertEquals(EXPECTED_LONGITUDE, result.getLongitude(), EPSILON);
     }
 
     @Test
-    public void testFindShopGeoCodeWithEmptyResult() throws Exception {
-        ShopIdentity stubShop = mock(ShopIdentity.class);
-        when(stubShop.getShopAddressNumber()).thenReturn("");
-        when(stubShop.getShopAddressPostCode()).thenReturn("");
+    public void testFindPlaceGeoCodeWithEmptyResult() throws Exception {
+        PlaceIdentity stubPlace = mock(PlaceIdentity.class);
+        when(stubPlace.getAddressNumber()).thenReturn("");
+        when(stubPlace.getPostCode()).thenReturn("");
 
         when(mockRestTemplate.getForObject(anyString(), anyObject())).
                 thenReturn(loadStringWithNoResult());
-        expectedException.expect(ShopGeoCodeNotFoundException.class);
-        testShopGeoCodeFinder.findShopGeoCode(stubShop);
+        expectedException.expect(PlaceGeoCodeNotFoundException.class);
+        testPlaceGeoCodeFinder.findPlaceGeoCode(stubPlace);
     }
 
     private String loadStringWithFullContent() throws Exception {
-        return loadJsonAsString("GoogleShopGeoCodeFinderTestInput");
+        return loadJsonAsString("GooglePlaceGeoCodeFinderTestInput");
     }
 
     private String loadStringWithNoResult() throws Exception {
-        return loadJsonAsString("GoogleShopGeoCodeFinderTestInput2");
+        return loadJsonAsString("GooglePlaceGeoCodeFinderTestInput2");
     }
 
     private String loadJsonAsString(String fileName) throws Exception {

@@ -1,4 +1,4 @@
-package com.shoplocater;
+package com.placelocater;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

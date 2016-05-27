@@ -1,7 +1,7 @@
-package com.shoplocater;
+package com.placelocater;
 
-import com.shoplocater.model.ShopGeoCode;
-import com.shoplocater.model.ShopIdentity;
+import com.placelocater.model.PlaceGeoCode;
+import com.placelocater.model.PlaceIdentity;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
  * Created by Ray on 25/05/2016.
  */
 @Service(value="Google")
-public class GoogleShopGeoCodeFinder implements ShopGeoCodeFinder{
+public class GooglePlaceGeoCodeFinder implements PlaceGeoCodeFinder {
 
     private static final String GOOGLE_GEO_API = "https://maps.googleapis.com/maps/api/geocode/json?";
     private static final String PARAMETERS = "components=street_number:%s|postal_code:%s&Key=%s";
@@ -19,16 +19,16 @@ public class GoogleShopGeoCodeFinder implements ShopGeoCodeFinder{
     private RestTemplate restTemplate;
 
     @Override
-    public ShopGeoCode findShopGeoCode(ShopIdentity shopIdentity) throws ShopGeoCodeNotFoundException {
+    public PlaceGeoCode findPlaceGeoCode(PlaceIdentity placeIdentity) throws PlaceGeoCodeNotFoundException {
         String url = GOOGLE_GEO_API +
-                String.format(PARAMETERS, shopIdentity.getShopAddressNumber(),
-                        shopIdentity.getShopAddressPostCode(), GOOGLE_API_KEY);
+                String.format(PARAMETERS, placeIdentity.getAddressNumber(),
+                        placeIdentity.getPostCode(), GOOGLE_API_KEY);
         if (restTemplate == null)
             restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(url, String.class);
         JSONObject resultJson = new JSONObject(result);
         String status = resultJson.getString("status");
-        if ("ZERO_RESULTS".equals(status)) throw new ShopGeoCodeNotFoundException();
+        if ("ZERO_RESULTS".equals(status)) throw new PlaceGeoCodeNotFoundException();
 
         JSONObject location = resultJson.
                 getJSONArray("results").
@@ -36,6 +36,6 @@ public class GoogleShopGeoCodeFinder implements ShopGeoCodeFinder{
                 getJSONObject("geometry").
                 getJSONObject("location");
 
-        return new ShopGeoCode(location.getDouble("lng"), location.getDouble("lat"));
+        return new PlaceGeoCode(location.getDouble("lng"), location.getDouble("lat"));
     }
 }

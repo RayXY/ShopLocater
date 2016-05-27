@@ -1,6 +1,6 @@
-package com.shoplocater;
+package com.placelocater;
 
-import com.shoplocater.model.ShopGeoCode;
+import com.placelocater.model.PlaceGeoCode;
 
 /**
  * Created by Ray on 25/05/2016.
@@ -12,5 +12,5 @@ public interface DistanceCalculator {
      * @param geoCode2
      * @return A double number to represent the distance
      */
-    double calculateDistance(ShopGeoCode geoCode1, ShopGeoCode geoCode2);
+    double calculateDistance(PlaceGeoCode geoCode1, PlaceGeoCode geoCode2);
 }

@@ -8,7 +8,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 jar {
-    baseName = 'shop-locater'
+    baseName = 'place-locater'
     version =  '1.0.0'
 }
 

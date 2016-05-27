@@ -1,7 +1,7 @@
-package com.shoplocater;
+package com.placelocater;
 
-import com.shoplocater.model.Shop;
-import com.shoplocater.model.ShopGeoCode;
+import com.placelocater.model.Place;
+import com.placelocater.model.PlaceGeoCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -12,26 +12,26 @@ import java.util.Collection;
  * Created by Ray on 25/05/2016.
  */
 @Service(value="MinDistance")
-public class MinDistanceNearestShopFinder implements NearestShopFinder{
+public class MinDistanceNearestPlaceFinder implements NearestPlaceFinder {
 
     @Autowired
     @Qualifier("DirectLine")
     private DistanceCalculator distanceCalculator;
     
     @Override
-    public Shop findNearestShop(Collection<Shop> shops, ShopGeoCode shopGeoCode) {
+    public Place findNearestPlace(Collection<Place> places, PlaceGeoCode placeGeoCode) {
         double minDistance = Double.MAX_VALUE;
         double currentDistance;
-        Shop nearestShop = null;
-        for (Shop shop : shops) {
-            currentDistance = distanceCalculator.calculateDistance(shop.getShopGeoCode(), shopGeoCode);
+        Place nearestPlace = null;
+        for (Place place : places) {
+            currentDistance = distanceCalculator.calculateDistance(place.getPlaceGeoCode(), placeGeoCode);
             if (currentDistance < minDistance) {
-                nearestShop = shop;
+                nearestPlace = place;
                 minDistance = currentDistance;
             }
         }
 
-        return nearestShop;
+        return nearestPlace;
     }
 
 }
