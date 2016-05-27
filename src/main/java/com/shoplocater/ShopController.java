@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Spring REST service controller where resource accessors are defined
+ * Spring HTTP API service controller where resource accessors are defined
+ *
+ * Note: this is not a RESTful API
  * Created by Ray on 25/05/2016.
  */
-@RestController
+@Controller
 public class ShopController {
 
     @Autowired
