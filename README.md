@@ -1,5 +1,5 @@
 # ShopLocater
-An exercise to utilise Spring Boot application to create a REST service which allows shop location management and lookup
+An exercise to utilise Spring Boot application to create a HTTP service which allows shop location management and lookup
 
 ## User Guide
 
@@ -8,7 +8,7 @@ An exercise to utilise Spring Boot application to create a REST service which al
 2. From the directory of the jar run this command: java -jar shop-locater-1.0.0.jar
 3. The above command will eventually print "Started Application in [xxx] seconds" to confirm the service is running
 
-###Call the REST API
+###Call the HTTP API
 1. To add a shop  
 Use your http client to send a POST call to "http://localhost:8080/addshop"  
 The body of this POST call should be a JSON matching below format  
