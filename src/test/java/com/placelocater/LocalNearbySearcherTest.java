@@ -11,20 +11,22 @@ import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
  * Created by Ray on 25/05/2016.
  */
-public class MinDistanceNearestPlaceFinderTest {
+public class LocalNearbySearcherTest {
 
     @InjectMocks
-    private MinDistanceNearestPlaceFinder testNearestPlaceFinder;
+    private LocalNearbySearcher testNearestPlaceFinder;
 
     @Mock
     private DistanceCalculator mockDistanceCalculator;
+    @Mock
+    private PlaceRecorder placeRecorder;
 
     @Before
     public void setup() {
@@ -44,6 +46,7 @@ public class MinDistanceNearestPlaceFinderTest {
         List<Place> stubPlaces = new ArrayList<>();
         stubPlaces.add(nearerPlace);
         stubPlaces.add(furtherPlace);
+        when(placeRecorder.getAllPlaces()).thenReturn(stubPlaces);
 
         PlaceGeoCode targetGeoCode = mock(PlaceGeoCode.class);
         when(mockDistanceCalculator.calculateDistance(nearerGeoCode, targetGeoCode)).
@@ -51,7 +54,9 @@ public class MinDistanceNearestPlaceFinderTest {
         when(mockDistanceCalculator.calculateDistance(futherGeoCode, targetGeoCode)).
                 thenReturn(2.0);
 
-        assertEquals(nearerPlace, testNearestPlaceFinder.findNearestPlace(stubPlaces, targetGeoCode));
+        List<Place> result = testNearestPlaceFinder.searchNearby(targetGeoCode);
+        assertEquals(nearerPlace, result.get(0));
+        assertEquals(furtherPlace, result.get(1));
     }
 
 }
