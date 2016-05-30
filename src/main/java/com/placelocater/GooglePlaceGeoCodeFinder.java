@@ -15,6 +15,8 @@ public class GooglePlaceGeoCodeFinder implements PlaceGeoCodeFinder {
     private static final String GOOGLE_GEO_API = "https://maps.googleapis.com/maps/api/geocode/json?";
     private static final String PARAMETERS = "components=street_number:%s|postal_code:%s&Key=%s";
     private static final String GOOGLE_API_KEY = "AIzaSyBQjCQVlN_fgTyIPDG65tTdNuuC7k9qs0Y";
+    private static final String POSTCODE_PARAMETERS = "components=postal_code:%s&Key=%s";
+
 
     private RestTemplate restTemplate;
 
@@ -23,6 +25,19 @@ public class GooglePlaceGeoCodeFinder implements PlaceGeoCodeFinder {
         String url = GOOGLE_GEO_API +
                 String.format(PARAMETERS, placeIdentity.getAddressNumber(),
                         placeIdentity.getPostCode(), GOOGLE_API_KEY);
+
+        return createPlaceGeoCode(url);
+    }
+
+    @Override
+    public PlaceGeoCode findPlaceGeoCode(String postCode) throws PlaceGeoCodeNotFoundException {
+        String url = GOOGLE_GEO_API +
+                String.format(POSTCODE_PARAMETERS, postCode, GOOGLE_API_KEY);
+
+        return createPlaceGeoCode(url);
+    }
+
+    private PlaceGeoCode createPlaceGeoCode(String url) throws PlaceGeoCodeNotFoundException {
         if (restTemplate == null)
             restTemplate = new RestTemplate();
         String result = restTemplate.getForObject(url, String.class);

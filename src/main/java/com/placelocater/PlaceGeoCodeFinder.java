@@ -14,4 +14,12 @@ public interface PlaceGeoCodeFinder {
      * @throws PlaceGeoCodeNotFoundException
      */
     PlaceGeoCode findPlaceGeoCode(PlaceIdentity placeIdentity) throws PlaceGeoCodeNotFoundException;
+
+    /**
+     * Search and find the geo code assigned to a place based on a given postcode
+     * @param postCode
+     * @return PlaceGeoCode if found
+     * @throws PlaceGeoCodeNotFoundException
+     */
+    PlaceGeoCode findPlaceGeoCode(String postCode) throws PlaceGeoCodeNotFoundException;
 }

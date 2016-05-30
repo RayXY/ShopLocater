@@ -45,14 +45,26 @@ public class GooglePlaceGeoCodeFinderTest {
     }
 
     @Test
-    public void testFindPlaceGeoCodeWithNormalResult() throws Exception {
+    public void testFindPlaceGeoCodeByPlaceIdentity() throws Exception {
         PlaceIdentity stubPlace = mock(PlaceIdentity.class);
         when(stubPlace.getAddressNumber()).thenReturn("");
         when(stubPlace.getPostCode()).thenReturn("");
 
         when(mockRestTemplate.getForObject(anyString(), anyObject())).
                 thenReturn(loadStringWithFullContent());
+
         PlaceGeoCode result = testPlaceGeoCodeFinder.findPlaceGeoCode(stubPlace);
+        assertEquals(EXPECTED_LATITUDE, result.getLatitude(), EPSILON);
+        assertEquals(EXPECTED_LONGITUDE, result.getLongitude(), EPSILON);
+    }
+
+    @Test
+    public void testFindPlaceGeoCodeByPostcode() throws Exception {
+        String postcode = "testPostcode";
+        when(mockRestTemplate.getForObject(anyString(), anyObject())).
+                thenReturn(loadStringWithFullContent());
+
+        PlaceGeoCode result = testPlaceGeoCodeFinder.findPlaceGeoCode(postcode);
         assertEquals(EXPECTED_LATITUDE, result.getLatitude(), EPSILON);
         assertEquals(EXPECTED_LONGITUDE, result.getLongitude(), EPSILON);
     }
