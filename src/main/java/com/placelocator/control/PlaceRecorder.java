@@ -1,4 +1,4 @@
-package com.placelocator.local;
+package com.placelocator.control;
 
 import com.placelocator.PlaceGeoCodeNotFoundException;
 import com.placelocator.model.Place;
@@ -12,11 +12,11 @@ import java.util.Collection;
 public interface PlaceRecorder {
 
     /**
-     * Search place geo code based on place identity and then add place only if geo code can be found
-     * @param placeIdentity
+     * Add a place to the internal storage
+     * @param place
      * @throws PlaceGeoCodeNotFoundException
      */
-    void addPlace(PlaceIdentity placeIdentity) throws PlaceGeoCodeNotFoundException;
+    void addPlace(Place place);
 
     /**
      * Check if place has already been added
@@ -32,7 +32,7 @@ public interface PlaceRecorder {
     Collection<Place> getAllPlaces();
 
     /**
-     * Remove a user defined place from its container
+     * Remove a user defined place from the internal storage
      * @param placeIdentity
      */
     void deletePlace(PlaceIdentity placeIdentity);

@@ -1,7 +1,7 @@
-package com.placelocator;
+package com.placelocator.common;
 
 import com.placelocator.model.PlaceGeoCode;
-import com.placelocator.search.DirectLineDistanceCalculator;
+import com.placelocator.common.DirectLineDistanceCalculator;
 import org.junit.Before;
 import org.junit.Test;
 

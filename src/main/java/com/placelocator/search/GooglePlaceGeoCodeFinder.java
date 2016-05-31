@@ -1,16 +1,18 @@
 package com.placelocator.search;
 
 import com.placelocator.PlaceGeoCodeNotFoundException;
+import com.placelocator.common.RemoteJsonCaller;
 import com.placelocator.model.PlaceGeoCode;
 import com.placelocator.model.PlaceIdentity;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by Ray on 25/05/2016.
  */
-@Service(value="Google")
+@Service
 public class GooglePlaceGeoCodeFinder implements PlaceGeoCodeFinder {
 
     private static final String GOOGLE_GEO_API = "https://maps.googleapis.com/maps/api/geocode/json?";
@@ -18,8 +20,8 @@ public class GooglePlaceGeoCodeFinder implements PlaceGeoCodeFinder {
     private static final String GOOGLE_API_KEY = "AIzaSyBQjCQVlN_fgTyIPDG65tTdNuuC7k9qs0Y";
     private static final String POSTCODE_PARAMETERS = "components=postal_code:%s&Key=%s";
 
-
-    private RestTemplate restTemplate;
+    @Autowired
+    private RemoteJsonCaller remoteJsonCaller;
 
     @Override
     public PlaceGeoCode findPlaceGeoCode(PlaceIdentity placeIdentity) throws PlaceGeoCodeNotFoundException {
@@ -39,10 +41,7 @@ public class GooglePlaceGeoCodeFinder implements PlaceGeoCodeFinder {
     }
 
     private PlaceGeoCode createPlaceGeoCode(String url) throws PlaceGeoCodeNotFoundException {
-        if (restTemplate == null)
-            restTemplate = new RestTemplate();
-        String result = restTemplate.getForObject(url, String.class);
-        JSONObject resultJson = new JSONObject(result);
+        JSONObject resultJson = remoteJsonCaller.sendGetRequest(url);
         String status = resultJson.getString("status");
         if ("ZERO_RESULTS".equals(status)) throw new PlaceGeoCodeNotFoundException();
 

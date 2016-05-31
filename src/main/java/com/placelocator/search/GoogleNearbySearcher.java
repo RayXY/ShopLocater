@@ -1,12 +1,13 @@
 package com.placelocator.search;
 
+import com.placelocator.common.RemoteJsonCaller;
 import com.placelocator.model.Place;
 import com.placelocator.model.PlaceGeoCode;
 import com.placelocator.model.PlaceIdentity;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by Ray on 27/05/2016.
  */
-@Service(value="Google")
+@Service(value="GoogleNearbySearcher")
 public class GoogleNearbySearcher implements NearbySearcher {
 
     private static final int DEFAULT_RADIUS = 500;
@@ -24,12 +25,11 @@ public class GoogleNearbySearcher implements NearbySearcher {
     private static final String PARAMETERS_WITH_TYPE = "location=%s,%s&radius=%s&type=%s&rankby=distance&key=%s";
     private static final String GOOGLE_API_KEY = "AIzaSyBQjCQVlN_fgTyIPDG65tTdNuuC7k9qs0Y";
 
-    private RestTemplate restTemplate;
+    @Autowired
+    private RemoteJsonCaller remoteJsonCaller;
 
     @Override
     public List<Place> searchNearby(PlaceGeoCode centrePoint, String placeType) {
-        if (restTemplate == null)
-            restTemplate = new RestTemplate();
         List<Place> nearbyPlaces = null;
         int radius = DEFAULT_RADIUS;
         while (nearbyPlaces == null && radius <= MAX_RADIUS) {
@@ -48,9 +48,8 @@ public class GoogleNearbySearcher implements NearbySearcher {
         String url = placeType == null ?
                 constructUrl(centrePoint, radius) :
                 constructUrlWithType(centrePoint, radius, placeType);
-        String result = restTemplate.getForObject(url, String.class);
-        JSONObject resultJson = new JSONObject(result);
-        List<Place> nearbyPlaces = new ArrayList<>();;
+        JSONObject resultJson = remoteJsonCaller.sendGetRequest(url);
+        List<Place> nearbyPlaces = new ArrayList<>();
         JSONArray resultArray = resultJson.getJSONArray("results");
         if (resultArray.length() > 0) {
             for (int i = 0; i < resultArray.length(); i++) {

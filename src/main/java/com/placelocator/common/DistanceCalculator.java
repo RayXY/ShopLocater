@@ -1,4 +1,4 @@
-package com.placelocator.search;
+package com.placelocator.common;
 
 import com.placelocator.model.PlaceGeoCode;
 

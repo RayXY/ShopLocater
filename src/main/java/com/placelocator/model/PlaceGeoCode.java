@@ -5,8 +5,10 @@ package com.placelocator.model;
  */
 public class PlaceGeoCode {
 
-    private final double longitude;
-    private final double latitude;
+    private double longitude;
+    private double latitude;
+
+    public PlaceGeoCode() {} //for Jackson
 
     public PlaceGeoCode(double longitude, double latitude) {
         this.longitude = longitude;

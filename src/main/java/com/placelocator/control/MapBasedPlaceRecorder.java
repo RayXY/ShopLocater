@@ -1,14 +1,7 @@
-package com.placelocator.local;
+package com.placelocator.control;
 
-import com.placelocator.search.CentroidCalculator;
-import com.placelocator.search.NearbySearcher;
-import com.placelocator.search.PlaceGeoCodeFinder;
-import com.placelocator.PlaceGeoCodeNotFoundException;
-import com.placelocator.model.PlaceGeoCode;
 import com.placelocator.model.PlaceIdentity;
 import com.placelocator.model.Place;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -20,11 +13,6 @@ import java.util.Map;
  */
 @Service(value="MapBased")
 public class MapBasedPlaceRecorder implements PlaceRecorder {
-
-    @Autowired
-    @Qualifier("Google")
-    private PlaceGeoCodeFinder placeGeoCodeFinder;
-
     private Map<PlaceIdentity, Place> recordMap;
 
     public MapBasedPlaceRecorder() {
@@ -32,9 +20,8 @@ public class MapBasedPlaceRecorder implements PlaceRecorder {
     }
 
     @Override
-    public void addPlace(PlaceIdentity placeIdentity) throws PlaceGeoCodeNotFoundException {
-        PlaceGeoCode placeGeoCode = placeGeoCodeFinder.findPlaceGeoCode(placeIdentity);
-        recordMap.put(placeIdentity, new Place(placeIdentity, placeGeoCode));
+    public void addPlace(Place place) {
+        recordMap.put(place.getPlaceIdentity(), place);
     }
 
     @Override
@@ -42,6 +29,7 @@ public class MapBasedPlaceRecorder implements PlaceRecorder {
         return recordMap.containsKey(placeIdentity);
     }
 
+    @Override
     public Place getPlace(PlaceIdentity placeIdentity) {
         return recordMap.get(placeIdentity);
     }

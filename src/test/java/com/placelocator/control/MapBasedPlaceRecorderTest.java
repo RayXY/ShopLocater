@@ -1,6 +1,7 @@
-package com.placelocator;
+package com.placelocator.control;
 
-import com.placelocator.local.MapBasedPlaceRecorder;
+import com.placelocator.PlaceGeoCodeNotFoundException;
+import com.placelocator.model.Place;
 import com.placelocator.model.PlaceGeoCode;
 import com.placelocator.model.PlaceIdentity;
 import com.placelocator.model.PlaceType;
@@ -25,11 +26,6 @@ public class MapBasedPlaceRecorderTest {
     @InjectMocks
     private MapBasedPlaceRecorder testPlaceRecorder;
 
-    @Mock
-    private PlaceGeoCodeFinder mockPlaceGeoCodeFinder;
-    @Mock
-    private NearbySearcher mockNearbySearcher;
-
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
@@ -42,29 +38,15 @@ public class MapBasedPlaceRecorderTest {
     public void testAddPlaceSuccessfully() throws Exception {
         PlaceIdentity stubPlaceIdentity = new PlaceIdentity("test", "1", "test", PlaceType.Undefined.name());
         PlaceGeoCode stubPlaceGeoCode = new PlaceGeoCode(1, 1);
-        when(mockPlaceGeoCodeFinder.findPlaceGeoCode(stubPlaceIdentity)).
-                thenReturn(stubPlaceGeoCode);
-        testPlaceRecorder.addPlace(stubPlaceIdentity);
+        testPlaceRecorder.addPlace(new Place(stubPlaceIdentity, stubPlaceGeoCode));
         assertEquals(stubPlaceGeoCode, testPlaceRecorder.getPlace(stubPlaceIdentity).getPlaceGeoCode());
-    }
-
-    @SuppressWarnings("unchecked")
-    @Test
-    public void testAddPlaceFailedWithGeoCodeNotFoundException() throws Exception {
-        PlaceIdentity stubPlaceIdentity = new PlaceIdentity("test", "1", "test", PlaceType.Undefined.name());
-        when(mockPlaceGeoCodeFinder.findPlaceGeoCode(stubPlaceIdentity)).
-                thenThrow(PlaceGeoCodeNotFoundException.class);
-        expectedException.expect(PlaceGeoCodeNotFoundException.class);
-        testPlaceRecorder.addPlace(stubPlaceIdentity);
     }
 
     @Test
     public void testCheckPlaceExistReturnTrue() throws Exception {
         PlaceIdentity stubPlaceIdentity = new PlaceIdentity("test", "1", "test", PlaceType.Undefined.name());
         PlaceGeoCode stubPlaceGeoCode = new PlaceGeoCode(1, 1);
-        when(mockPlaceGeoCodeFinder.findPlaceGeoCode(stubPlaceIdentity)).
-                thenReturn(stubPlaceGeoCode);
-        testPlaceRecorder.addPlace(stubPlaceIdentity);
+        testPlaceRecorder.addPlace(new Place(stubPlaceIdentity, stubPlaceGeoCode));
         assertTrue(testPlaceRecorder.isPlaceExist(stubPlaceIdentity));
     }
 

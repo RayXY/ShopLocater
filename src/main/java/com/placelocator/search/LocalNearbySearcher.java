@@ -1,10 +1,10 @@
 package com.placelocator.search;
 
-import com.placelocator.local.PlaceRecorder;
+import com.placelocator.control.PlaceRecorder;
 import com.placelocator.model.Place;
 import com.placelocator.model.PlaceGeoCode;
+import com.placelocator.common.DistanceCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,15 +12,13 @@ import java.util.*;
 /**
  * Created by Ray on 25/05/2016.
  */
-@Service(value="Local")
+@Service(value="LocalNearbySearcher")
 public class LocalNearbySearcher implements NearbySearcher {
 
     @Autowired
-    @Qualifier("DirectLine")
     private DistanceCalculator distanceCalculator;
 
     @Autowired
-    @Qualifier("MapBased")
     private PlaceRecorder placeRecorder;
     
     @Override

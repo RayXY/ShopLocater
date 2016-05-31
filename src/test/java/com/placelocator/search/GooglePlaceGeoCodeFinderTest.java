@@ -1,8 +1,10 @@
-package com.placelocator;
+package com.placelocator.search;
 
+import com.placelocator.PlaceGeoCodeNotFoundException;
+import com.placelocator.common.RemoteJsonCaller;
 import com.placelocator.model.PlaceGeoCode;
 import com.placelocator.model.PlaceIdentity;
-import com.placelocator.search.GooglePlaceGeoCodeFinder;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,7 +12,6 @@ import org.junit.rules.ExpectedException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.web.client.RestTemplate;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -35,7 +36,7 @@ public class GooglePlaceGeoCodeFinderTest {
     private GooglePlaceGeoCodeFinder testPlaceGeoCodeFinder;
 
     @Mock
-    private RestTemplate mockRestTemplate;
+    private RemoteJsonCaller remoteJsonCaller;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -50,8 +51,7 @@ public class GooglePlaceGeoCodeFinderTest {
         PlaceIdentity stubPlace = mock(PlaceIdentity.class);
         when(stubPlace.getAddressNumber()).thenReturn("");
         when(stubPlace.getPostCode()).thenReturn("");
-
-        when(mockRestTemplate.getForObject(anyString(), anyObject())).
+        when(remoteJsonCaller.sendGetRequest(anyString())).
                 thenReturn(loadStringWithFullContent());
 
         PlaceGeoCode result = testPlaceGeoCodeFinder.findPlaceGeoCode(stubPlace);
@@ -62,7 +62,7 @@ public class GooglePlaceGeoCodeFinderTest {
     @Test
     public void testFindPlaceGeoCodeByPostcode() throws Exception {
         String postcode = "testPostcode";
-        when(mockRestTemplate.getForObject(anyString(), anyObject())).
+        when(remoteJsonCaller.sendGetRequest(anyString())).
                 thenReturn(loadStringWithFullContent());
 
         PlaceGeoCode result = testPlaceGeoCodeFinder.findPlaceGeoCode(postcode);
@@ -75,24 +75,24 @@ public class GooglePlaceGeoCodeFinderTest {
         PlaceIdentity stubPlace = mock(PlaceIdentity.class);
         when(stubPlace.getAddressNumber()).thenReturn("");
         when(stubPlace.getPostCode()).thenReturn("");
-
-        when(mockRestTemplate.getForObject(anyString(), anyObject())).
+        when(remoteJsonCaller.sendGetRequest(anyString())).
                 thenReturn(loadStringWithNoResult());
+
         expectedException.expect(PlaceGeoCodeNotFoundException.class);
         testPlaceGeoCodeFinder.findPlaceGeoCode(stubPlace);
     }
 
-    private String loadStringWithFullContent() throws Exception {
+    private JSONObject loadStringWithFullContent() throws Exception {
         return loadJsonAsString("GooglePlaceGeoCodeFinderTestInput");
     }
 
-    private String loadStringWithNoResult() throws Exception {
+    private JSONObject loadStringWithNoResult() throws Exception {
         return loadJsonAsString("GooglePlaceGeoCodeFinderTestInput2");
     }
 
-    private String loadJsonAsString(String fileName) throws Exception {
+    private JSONObject loadJsonAsString(String fileName) throws Exception {
         Path filePath = Paths.get(this.getClass().getResource(fileName).toURI());
-        return new String(Files.readAllBytes(filePath));
+        return new JSONObject(new String(Files.readAllBytes(filePath)));
     }
 
 }

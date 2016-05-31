@@ -1,10 +1,9 @@
-package com.placelocator;
+package com.placelocator.search;
 
-import com.placelocator.local.PlaceRecorder;
+import com.placelocator.control.PlaceRecorder;
 import com.placelocator.model.Place;
 import com.placelocator.model.PlaceGeoCode;
-import com.placelocator.search.DistanceCalculator;
-import com.placelocator.search.LocalNearbySearcher;
+import com.placelocator.common.DistanceCalculator;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;

@@ -5,8 +5,10 @@ import com.placelocator.PlaceTypeNotDefinedException;
 import com.placelocator.model.Place;
 import com.placelocator.model.PlaceGeoCode;
 import com.placelocator.model.PlaceType;
+import com.placelocator.common.CentroidCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,18 +17,17 @@ import java.util.List;
 /**
  * Created by Ray on 27/05/2016.
  */
+@Service
 public class GooglePlaceExplorer implements PlaceExporer {
 
     @Autowired
-    @Qualifier("Plain")
     private CentroidCalculator centroidCalculator;
 
     @Autowired
-    @Qualifier("Google")
+    @Qualifier("GoogleNearbySearcher")
     private NearbySearcher nearbySearcher;
 
     @Autowired
-    @Qualifier("Google")
     private PlaceGeoCodeFinder placeGeoCodeFinder;
 
     @Override

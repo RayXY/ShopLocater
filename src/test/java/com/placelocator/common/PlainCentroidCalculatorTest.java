@@ -1,7 +1,7 @@
-package com.placelocator;
+package com.placelocator.common;
 
 import com.placelocator.model.PlaceGeoCode;
-import com.placelocator.search.PlainCentroidCalculator;
+import com.placelocator.common.PlainCentroidCalculator;
 import org.junit.Before;
 import org.junit.Test;
 

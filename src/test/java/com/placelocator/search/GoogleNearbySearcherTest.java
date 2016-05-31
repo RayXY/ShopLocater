@@ -1,8 +1,9 @@
-package com.placelocator;
+package com.placelocator.search;
 
+import com.placelocator.common.RemoteJsonCaller;
 import com.placelocator.model.Place;
 import com.placelocator.model.PlaceGeoCode;
-import com.placelocator.search.GoogleNearbySearcher;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -30,7 +31,7 @@ public class GoogleNearbySearcherTest {
     private GoogleNearbySearcher nearbySearcher;
 
     @Mock
-    private RestTemplate mockRestTemplate;
+    private RemoteJsonCaller remoteJsonCaller;
 
     @Before
     public void setup() {
@@ -38,8 +39,8 @@ public class GoogleNearbySearcherTest {
     }
 
     @Test
-    public void searchNearby() throws Exception {
-        when(mockRestTemplate.getForObject(anyString(), anyObject())).
+    public void testSearchNearbyCanReturnInOrder() throws Exception {
+        when(remoteJsonCaller.sendGetRequest(anyString())).
                 thenReturn(loadStringWithPlaces());
         PlaceGeoCode targetGeoCode = mock(PlaceGeoCode.class);
         List<Place> result = nearbySearcher.searchNearby(targetGeoCode);
@@ -47,13 +48,13 @@ public class GoogleNearbySearcherTest {
         assertEquals("further place", result.get(1).getPlaceIdentity().getName());
     }
 
-    private String loadStringWithPlaces() throws Exception {
-        return loadJsonAsString("GoogleNearbySearcherTestInput");
+    private JSONObject loadStringWithPlaces() throws Exception {
+        return loadJsonAsObject("GoogleNearbySearcherTestInput");
     }
 
-    private String loadJsonAsString(String fileName) throws Exception {
+    private JSONObject loadJsonAsObject(String fileName) throws Exception {
         Path filePath = Paths.get(this.getClass().getResource(fileName).toURI());
-        return new String(Files.readAllBytes(filePath));
+        return new JSONObject(new String(Files.readAllBytes(filePath)));
     }
 
 }

@@ -1,6 +1,6 @@
-package com.placelocator;
+package com.placelocator.search;
 
-import com.placelocator.search.CentroidCalculator;
+import com.placelocator.common.CentroidCalculator;
 import com.placelocator.search.GooglePlaceExplorer;
 import com.placelocator.search.NearbySearcher;
 import com.placelocator.search.PlaceGeoCodeFinder;

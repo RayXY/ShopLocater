@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Created by Ray on 25/05/2016.
- * This is to search
+ * This is to common
  */
 public interface NearbySearcher {
 

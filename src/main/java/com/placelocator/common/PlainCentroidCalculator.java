@@ -1,4 +1,4 @@
-package com.placelocator.search;
+package com.placelocator.common;
 
 import com.placelocator.model.PlaceGeoCode;
 import org.springframework.stereotype.Service;
@@ -8,7 +8,7 @@ import java.util.Collection;
 /**
  * Created by Ray on 27/05/2016.
  */
-@Service(value="plain")
+@Service
 public class PlainCentroidCalculator implements CentroidCalculator {
 
     @Override

@@ -1,4 +1,4 @@
-package com.placelocator.search;
+package com.placelocator.common;
 
 import com.placelocator.model.PlaceGeoCode;
 import org.springframework.stereotype.Service;
@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 /**
  * Created by Ray on 25/05/2016.
  */
-@Service(value="DirectLine")
+@Service
 public class DirectLineDistanceCalculator implements DistanceCalculator  {
 
     @Override

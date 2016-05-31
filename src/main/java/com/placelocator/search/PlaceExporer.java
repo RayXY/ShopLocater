@@ -16,7 +16,7 @@ public interface PlaceExporer {
      * Find a place which is convenient for all post code location to visit
      * @param placeType
      * @param postCodes
-     * @return
+     * @return the place as the meeting point
      * @throws PlaceGeoCodeNotFoundException
      */
     Place findMeetingPoint(String placeType, Collection<String> postCodes) throws PlaceGeoCodeNotFoundException;
