@@ -22,7 +22,10 @@ public class MapBasedPlaceRecorder implements PlaceRecorder {
     private PlaceGeoCodeFinder placeGeoCodeFinder;
     @Autowired
     @Qualifier("MinDistance")
-    private NearestPlaceFinder nearestPlaceFinder;
+    private NearbySearcher nearbySearcher;
+    @Autowired
+    @Qualifier("Plain")
+    private CentroidCalculator centroidCalculator;
 
     private Map<PlaceIdentity, Place> recordMap;
 
@@ -37,20 +40,21 @@ public class MapBasedPlaceRecorder implements PlaceRecorder {
     }
 
     @Override
-    public Place findNearestPlace(PlaceGeoCode placeGeoCode) {
-        return nearestPlaceFinder.findNearestPlace(recordMap.values(), placeGeoCode);
-    }
-
-    @Override
     public boolean isPlaceExist(PlaceIdentity placeIdentity) {
         return recordMap.containsKey(placeIdentity);
     }
 
-    protected Place getPlace(PlaceIdentity placeIdentity) {
+    public Place getPlace(PlaceIdentity placeIdentity) {
         return recordMap.get(placeIdentity);
     }
 
-    protected Collection<Place> getAllPlaces() {
+    @Override
+    public Collection<Place> getAllPlaces() {
         return recordMap.values();
+    }
+
+    @Override
+    public void deletePlace(PlaceIdentity placeIdentity) {
+        recordMap.remove(placeIdentity);
     }
 }

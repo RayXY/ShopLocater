@@ -7,14 +7,18 @@ public class PlaceIdentity {
     private String name;
     private String addressNumber;
     private String postCode;
-    private PlaceType placeType;
+    private String placeType;
 
     public PlaceIdentity(){} // For JackSON to convert
 
-    public PlaceIdentity(String name, String addressNumber, String postCode, PlaceType placeType) {
+    public PlaceIdentity(String name, String addressNumber, String postCode) {
         this.name = name;
         this.addressNumber = addressNumber;
         this.postCode = postCode;
+    }
+
+    public PlaceIdentity(String name, String addressNumber, String postCode, String placeType) {
+        this(name, addressNumber, postCode);
         this.placeType = placeType;
     }
 
@@ -30,7 +34,7 @@ public class PlaceIdentity {
         return postCode;
     }
 
-    public PlaceType getPlaceType() {
+    public String getPlaceType() {
         return placeType;
     }
 

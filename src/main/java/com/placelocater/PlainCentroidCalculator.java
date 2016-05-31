@@ -1,12 +1,14 @@
 package com.placelocater;
 
 import com.placelocater.model.PlaceGeoCode;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
 /**
  * Created by Ray on 27/05/2016.
  */
+@Service(value="plain")
 public class PlainCentroidCalculator implements CentroidCalculator {
 
     @Override
