@@ -20,9 +20,9 @@ public class GoogleNearbySearcher implements NearbySearcher {
 
     private static final int DEFAULT_RADIUS = 500;
     private static final int MAX_RADIUS = 2000;
-    private static final String GOOGLE_NEARBY_API = "https://maps.googleapis.com/maps/api/nearbysearch/json?";
-    private static final String PARAMETERS = "location=%s,%s&radius=%s&rankby=distance&key=%s";
-    private static final String PARAMETERS_WITH_TYPE = "location=%s,%s&radius=%s&type=%s&rankby=distance&key=%s";
+    private static final String GOOGLE_NEARBY_API = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
+    private static final String PARAMETERS = "location=%s,%s&radius=%s&key=%s";
+    private static final String PARAMETERS_WITH_TYPE = "location=%s,%s&radius=%s&type=%s&key=%s";
     private static final String GOOGLE_API_KEY = "AIzaSyBQjCQVlN_fgTyIPDG65tTdNuuC7k9qs0Y";
 
     @Autowired

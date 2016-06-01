@@ -7,16 +7,18 @@ import java.util.List;
  */
 public class MeetingPointRequest {
 
-    private final String placeType;
-    private final List<String> origins;
+    private  String type;
+    private  List<String> origins;
 
-    public MeetingPointRequest(String placeType, List<String> origins) {
-        this.placeType = placeType;
+    public MeetingPointRequest(){} // For Jackson
+
+    public MeetingPointRequest(String type, List<String> origins) {
+        this.type = type;
         this.origins = origins;
     }
 
-    public String getPlaceType() {
-        return placeType;
+    public String getType() {
+        return type;
     }
 
     public List<String> getOrigins() {

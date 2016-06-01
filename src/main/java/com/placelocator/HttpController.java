@@ -103,12 +103,12 @@ public class HttpController {
 
     @RequestMapping(value = "rpc/findmeetingpoint", method = RequestMethod.POST)
     public ResponseEntity<Place> findNearestPlace(@RequestBody MeetingPointRequest meetingPointRequest) {
-        System.out.println("Finding meeting place of type " + meetingPointRequest.getPlaceType() +
+        System.out.println("Finding meeting place of type " + meetingPointRequest.getType() +
                            " for " + meetingPointRequest.getOrigins());
 
         Place meetingPoint = null;
         try {
-            meetingPoint = placeExporer.findMeetingPoint(meetingPointRequest.getPlaceType(), meetingPointRequest.getOrigins());
+            meetingPoint = placeExporer.findMeetingPoint(meetingPointRequest.getType(), meetingPointRequest.getOrigins());
         }
         catch (PlaceGeoCodeNotFoundException e) {
             System.out.println("One of the post code does not have matching geocode");
