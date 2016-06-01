@@ -3,17 +3,17 @@ An exercise to utilise Spring Boot application to create a HTTP service which al
 
 ## User Guide
 
-###Install
+## Install
 1. Compile the source code using Gradle build, you will get a jar "shop-locater-1.0.0.jar"
 2. From the directory of the jar run this command: java -jar shop-locater-1.0.0.jar
 3. The above command will eventually print "Started Application in [xxx] seconds" to confirm the service is running
 
-###Call the HTTP API
+### Call the HTTP API
 While the server is running, use your http client to access below API with start with "http://localhost:8080"
-###Manage User Defined Places RESTful API
+### Manage user defined places with RESTful API
 Users are allowed to add and update and delete their own places by using the API.
 
-####Add/Update a Place
+#### Add/Update a Place
 Description: Add/Update a user defined place. This will then be searchable by the Location Explorer API 
 Method URL: /rest/userPlace
 Method Type: PUT
@@ -28,7 +28,7 @@ Request Body:
 
 Response: Header only indicate the status of OK/Not Accepted
 
-####Delete a Place
+#### Delete a Place
 Description: Delete a place from the user defined places. 
 Method URL: /rest/userPlace
 Method Type: DELETE
@@ -42,7 +42,7 @@ Request Body:
 
 Response: Header indicates the status of the action and the status is always OK 
 
-####Get a user defined place details
+#### Get a user defined place details
 Description: Find a user defined place. 
 Method URL: /rest/userPlace?name=xxx&number=xxx&postcode=xxx
 Method Type: Get
@@ -63,7 +63,7 @@ Response: Header only indicate the status of the action and the status is always
 }
 
 
-####Get all user defined Places
+#### Get all user defined Places
 Description: Find a user defined place. 
 Method URL: /rest/userPlaces
 Method Type: Get
@@ -79,7 +79,7 @@ Response: Header only indicate the status of the action and the status is always
 ]
 }
 
-###Places explorer non-RESTful API
+### Do places searches with RPC style API
 ####Find nearest place to a geo location
 Description: Find the nearest shop with a geo code
 Method URL: rpc/findnearest
