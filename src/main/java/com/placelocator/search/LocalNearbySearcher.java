@@ -27,7 +27,7 @@ public class LocalNearbySearcher implements NearbySearcher {
         double currentDistance;
         for (Place place : placeRecorder.getAllPlaces()) {
             if (placeType == null ||
-                    place.getPlaceIdentity().getPlaceType().equals(placeType)) {
+                    place.getPlaceIdentity().getType().equals(placeType)) {
                 currentDistance = distanceCalculator.calculateDistance(place.getPlaceGeoCode(), centrePoint);
                 nearbyPlaces.put(currentDistance, place);
             }

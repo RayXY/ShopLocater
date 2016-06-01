@@ -4,7 +4,6 @@ import com.placelocator.PlaceGeoCodeNotFoundException;
 import com.placelocator.PlaceTypeNotDefinedException;
 import com.placelocator.model.Place;
 import com.placelocator.model.PlaceGeoCode;
-import com.placelocator.model.PlaceType;
 import com.placelocator.common.CentroidCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -54,8 +53,7 @@ public class GooglePlaceExplorer implements PlaceExporer {
         List<Place> nearbyPlaces;
         if (type != null) {
             try {
-                String placeType = PlaceType.valueOf(type).name();
-                nearbyPlaces = nearbySearcher.searchNearby(placeGeoCode, placeType);
+                nearbyPlaces = nearbySearcher.searchNearby(placeGeoCode, type);
             } catch (IllegalArgumentException e) {
                 throw new PlaceTypeNotDefinedException();
             }

@@ -7,7 +7,7 @@ public class PlaceIdentity {
     private String name;
     private String addressNumber;
     private String postCode;
-    private String placeType;
+    private String type;
 
     public PlaceIdentity(){} // For JackSON to convert
 
@@ -17,9 +17,9 @@ public class PlaceIdentity {
         this.postCode = postCode;
     }
 
-    public PlaceIdentity(String name, String addressNumber, String postCode, String placeType) {
+    public PlaceIdentity(String name, String addressNumber, String postCode, String type) {
         this(name, addressNumber, postCode);
-        this.placeType = placeType;
+        this.type = type;
     }
 
     public String getName() {
@@ -34,8 +34,8 @@ public class PlaceIdentity {
         return postCode;
     }
 
-    public String getPlaceType() {
-        return placeType;
+    public String getType() {
+        return type;
     }
 
     @Override

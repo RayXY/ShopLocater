@@ -54,7 +54,7 @@ public class GoogleRemotePlaceController implements RemotePlaceController {
         JSONObject json = new JSONObject();
         json.put("name", place.getPlaceIdentity().getName());
         JSONArray types = new JSONArray();
-        types.put(place.getPlaceIdentity().getPlaceType());
+        types.put(place.getPlaceIdentity().getType());
         json.put("types", types);
         JSONObject location = new JSONObject();
         location.put("lat", place.getPlaceGeoCode().getLatitude());

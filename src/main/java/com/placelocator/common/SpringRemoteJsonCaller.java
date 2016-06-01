@@ -20,7 +20,7 @@ public class SpringRemoteJsonCaller implements RemoteJsonCaller {
     @Override
     public JSONObject sendPostRequest(String url, JSONObject body) {
         RestTemplate restTemplate = new RestTemplate();
-        String response = restTemplate.postForObject(url, body, String.class);
+        String response = restTemplate.postForObject(url, body.toString(), String.class);
         return new JSONObject(response);
     }
 }
